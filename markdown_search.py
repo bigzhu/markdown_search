@@ -16,13 +16,13 @@ RESULT_FILE = 'search.md'
 NOT_IN = [RESULT_FILE]
 
 
-def search(path, name):
+def search(path, name, not_in=[]):
     mds = {}
     for md in os.listdir(path):
         md = os.path.basename(md)
         if os.path.isdir(path + md):  # 跳过目录
             continue
-        if md in NOT_IN:  # 跳过目录特定文件名
+        if md in NOT_IN + not_in:  # 跳过目录特定文件名
             continue
 
         if(fnmatch.fnmatchcase(md.upper(), ('*%s*' % name).upper())):
