@@ -7,9 +7,12 @@ import fnmatch
 import sys
 import os
 import time
+try:
+    reload(sys)
+    sys.setdefaultencoding('utf-8')
+except NameError:
+    pass
 
-reload(sys)
-sys.setdefaultencoding('utf-8')
 
 RESULT_FILE = 'search.md'
 
@@ -48,10 +51,10 @@ def write(path, name, mds):
 def main():
     args = sys.argv
     if(len(args) == 1):
-        print '请输入要查找的目录和 wiki 关键字'
+        print('请输入要查找的目录和 wiki 关键字')
         exit()
     elif(len(args) == 2):
-        print '请输入要查找的目录和 wiki 关键字'
+        print('请输入要查找的目录和 wiki 关键字')
         exit()
     elif(len(args) == 3):
         path = args[1]
