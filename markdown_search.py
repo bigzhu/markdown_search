@@ -28,7 +28,8 @@ def search(path, name, not_in=[]):
         if(fnmatch.fnmatchcase(md.upper(), ('*%s*' % name).upper())):
             # 取文件修改时间
             modify_time = time.localtime(os.path.getmtime(path + md))
-            mds[md] = modify_time
+            no_suffix_md = md[:-3]
+            mds[no_suffix_md] = modify_time
         # 按时间排序
     mds = sorted(mds.items(), key=lambda by: by[1], reverse=True)
     return mds
@@ -41,7 +42,7 @@ def write(path, name, mds):
     # print >>f, '%nohtml'
     for md in mds:
         print >>f, '%s' % md[0]
-    print >>f, '%s.md' % name
+    print >>f, '%s' % name
     f.close()
 
 
