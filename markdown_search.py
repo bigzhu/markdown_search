@@ -20,6 +20,7 @@ NOT_IN = [RESULT_FILE]
 
 
 def search(path, name, not_in=[]):
+    path = os.path.expanduser(path) # 把 ~展开
     mds = {}
     for md in os.listdir(path):
         md = os.path.basename(md)
