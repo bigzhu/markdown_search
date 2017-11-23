@@ -20,7 +20,7 @@ NOT_IN = [RESULT_FILE]
 
 
 def search(path, name, not_in=[]):
-    path = os.path.expanduser(path) # 把 ~展开
+    path = os.path.expanduser(path)  # 把 ~展开
     mds = {}
     for md in os.listdir(path):
         md = os.path.basename(md)
@@ -42,11 +42,14 @@ def search(path, name, not_in=[]):
 def write(path, name, mds):
     '''
     '''
+    path = os.path.expanduser(path)  # 把 ~展开
     f = open(path + RESULT_FILE, 'w')
     # print >>f, '%nohtml'
     for md in mds:
-        print >>f, '%s' % md[0]
-    print >>f, '%s' % name
+        # print >>f, '%s' % md[0]
+        f.writelines(md[0] + '\n')
+    #print >>f, '%s' % name
+    f.writelines(name + '\n')
     f.close()
 
 
@@ -63,6 +66,7 @@ def main():
         name = args[2]
         mds = search(path, name)
         write(path, name, mds)
+
 
 if __name__ == '__main__':
     main()
