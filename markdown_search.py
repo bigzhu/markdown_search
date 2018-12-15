@@ -19,14 +19,15 @@ RESULT_FILE = 'search.md'
 NOT_IN = [RESULT_FILE]
 
 
-def search(path, name, not_in=[]):
+def search(path, name, not_in=[], sub_path=""):
     path = os.path.expanduser(path)  # 把 ~展开
     mds = {}
     sub_mds = {}
-    for md in os.listdir(path):
+    file_path = path+sub_path
+    for md in os.listdir(file_path):
         md = os.path.basename(md)
-        if os.path.isdir(path + md + "/"):  # 递归查找子目录
-            sub_mds=search(path + md + "/", name, not_in)
+        if os.path.isdir(file_path + md):  # 递归查找子目录
+            sub_mds=search(path, name, not_in, sub_path + md + "/")
             mds.update(sub_mds)
             continue
         if md in NOT_IN + not_in:  # 跳过目录特定文件名
@@ -34,9 +35,9 @@ def search(path, name, not_in=[]):
 
         if(fnmatch.fnmatchcase(md.upper(), ('*%s*' % name).upper())):
             # 取文件修改时间
-            modify_time = time.localtime(os.path.getmtime(path + md))
+            modify_time = time.localtime(os.path.getmtime(file_path + md))
             no_suffix_md = md[:-3]
-            mds[no_suffix_md] = modify_time
+            mds[sub_path + no_suffix_md] = modify_time # 子目录的文件, 要带上相对路径
         # 按时间排序
     mds = sorted(mds.items(), key=lambda by: by[1], reverse=True)
     return mds
