@@ -22,9 +22,12 @@ NOT_IN = [RESULT_FILE]
 def search(path, name, not_in=[]):
     path = os.path.expanduser(path)  # 把 ~展开
     mds = {}
+    sub_mds = {}
     for md in os.listdir(path):
         md = os.path.basename(md)
-        if os.path.isdir(path + md):  # 跳过目录
+        if os.path.isdir(path + md + "/"):  # 递归查找子目录
+            sub_mds=search(path + md + "/", name, not_in)
+            mds.update(sub_mds)
             continue
         if md in NOT_IN + not_in:  # 跳过目录特定文件名
             continue
