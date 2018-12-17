@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # encoding=utf-8
 '''
-vimwiki 中用来查找 wiki 词
+hugo 中用来查找 wiki 词
 '''
 import fnmatch
 import sys
@@ -27,7 +27,7 @@ def search(path, name, not_in=[], sub_path=""):
     for md in os.listdir(file_path):
         md = os.path.basename(md)
         if os.path.isdir(file_path + md):  # 递归查找子目录
-            sub_mds=search(path, name, not_in, sub_path + md + "/")
+            sub_mds = search(path, name, not_in, sub_path + md + "/")
             mds.update(sub_mds)
             continue
         if md in NOT_IN + not_in:  # 跳过目录特定文件名
@@ -37,7 +37,7 @@ def search(path, name, not_in=[], sub_path=""):
             # 取文件修改时间
             modify_time = time.localtime(os.path.getmtime(file_path + md))
             no_suffix_md = md[:-3]
-            mds[sub_path + no_suffix_md] = modify_time # 子目录的文件, 要带上相对路径
+            mds[sub_path + no_suffix_md] = modify_time  # 子目录的文件, 要带上相对路径
         # 按时间排序
     mds = sorted(mds.items(), key=lambda by: by[1], reverse=True)
     return mds
@@ -52,8 +52,7 @@ def write(path, name, mds):
     for md in mds:
         # print >>f, '%s' % md[0]
         f.writelines(md[0] + '\n')
-    #print >>f, '%s' % name
-    f.writelines(name + '\n')
+    f.writelines("blog/" + name + '\n')
     f.close()
 
 
