@@ -16,7 +16,7 @@ except NameError:
 
 RESULT_FILE = 'search.md'
 
-NOT_IN = [RESULT_FILE]
+NOT_IN = [RESULT_FILE, ".git"]
 
 
 def search(path, name, not_in=[], sub_path=""):
@@ -26,11 +26,11 @@ def search(path, name, not_in=[], sub_path=""):
     file_path = path+sub_path
     for md in os.listdir(file_path):
         md = os.path.basename(md)
+        if md in NOT_IN + not_in:  # 跳过目录特定文件名
+            continue
         if os.path.isdir(file_path + md):  # 递归查找子目录
             sub_mds = search(path, name, not_in, sub_path + md + "/")
             mds.update(sub_mds)
-            continue
-        if md in NOT_IN + not_in:  # 跳过目录特定文件名
             continue
 
         if(fnmatch.fnmatchcase(md.upper(), ('*%s*' % name).upper())):
