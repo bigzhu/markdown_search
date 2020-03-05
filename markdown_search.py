@@ -52,17 +52,22 @@ def write(path, name, mds):
     for md in mds:
         # print >>f, '%s' % md[0]
         f.writelines(md[0] + '\n')
-    f.writelines("tips/" + name + '\n')
+    f.writelines("english/" + name + '\n')
     f.close()
+
+
+def usage():
+    print('usage:')
+    print('    markdown_search.py path key_name')
 
 
 def main():
     args = sys.argv
     if(len(args) == 1):
-        print('请输入要查找的目录和 wiki 关键字')
+        usage()
         exit()
     elif(len(args) == 2):
-        print('请输入要查找的目录和 wiki 关键字')
+        usage()
         exit()
     elif(len(args) == 3):
         path = args[1]
