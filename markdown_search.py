@@ -52,7 +52,7 @@ def write(path, name, mds):
     for md in mds:
         # print >>f, '%s' % md[0]
         f.writelines(md[0] + '\n')
-    f.writelines("english/" + name + '\n')
+    f.writelines("tips/" + name + '\n')
     f.close()
 
 
