@@ -16,7 +16,7 @@ except NameError:
 
 RESULT_FILE = 'search.md'
 
-NOT_IN = [RESULT_FILE, ".git", "assets", ".gitign"]
+NOT_IN = [RESULT_FILE, ".git", "assets", ".gitign", "mindmap"]
 
 
 def search(path, name, not_in=[], sub_path=""):
