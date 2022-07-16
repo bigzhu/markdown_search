@@ -14,7 +14,7 @@ except NameError:
     pass
 
 
-RESULT_FILE = 'search.md'
+RESULT_FILE = 'index.md'
 
 NOT_IN = [RESULT_FILE, ".git", "assets", ".gitign", "mindmap"]
 
@@ -37,7 +37,7 @@ def search(path, name, not_in=[], sub_path=""):
             # 取文件修改时间
             modify_time = time.localtime(os.path.getmtime(file_path + md))
             no_suffix_md = md[:-3]
-            mds[sub_path + no_suffix_md] = modify_time  # 子目录的文件, 要带上相对路径
+            mds[no_suffix_md] = modify_time  # 子目录的文件, 要带上相对路径
         # 按时间排序
     mds = sorted(mds.items(), key=lambda by: by[1], reverse=True)
     return mds
@@ -51,8 +51,12 @@ def write(path, name, mds):
     # print >>f, '%nohtml'
     for md in mds:
         # print >>f, '%s' % md[0]
-        f.writelines(md[0] + '\n')
-    f.writelines("tips/" + name + '\n')
+        #f.writelines(md[0] + '\n')
+        f.writelines("[%s](%s)\n" % (md[0], md[0]))
+    #f.writelines("tips/" + name + '\n')
+    f.writelines("[%s](%s)\n" % (name, name))
+
+# [独立开发者案例和故事收集](独立开发者案例和故事收集)
     f.close()
 
 
