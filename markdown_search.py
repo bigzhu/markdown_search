@@ -33,7 +33,7 @@ def search(path, name, not_in=[], sub_path=""):
             mds.update(sub_mds)
             continue
 
-        if(fnmatch.fnmatchcase(md.upper(), ('*%s*' % name).upper())):
+        if (fnmatch.fnmatchcase(md.upper(), ('*%s*' % name).upper())):
             # 取文件修改时间
             modify_time = time.localtime(os.path.getmtime(file_path + md))
             no_suffix_md = md[:-3]
@@ -51,10 +51,10 @@ def write(path, name, mds):
     # print >>f, '%nohtml'
     for md in mds:
         # print >>f, '%s' % md[0]
-        #f.writelines(md[0] + '\n')
-        f.writelines("[%s](%s)\n" % (md[0], md[0]))
-    #f.writelines("tips/" + name + '\n')
-    f.writelines("[%s](%s)\n" % (name, name))
+        # f.writelines(md[0] + '\n')
+        f.writelines("[%s](%s.md)\n" % (md[0], md[0]))
+    # f.writelines("tips/" + name + '\n')
+    f.writelines("[%s](%s.md)\n" % (name, name))
 
 # [独立开发者案例和故事收集](独立开发者案例和故事收集)
     f.close()
@@ -67,13 +67,13 @@ def usage():
 
 def main():
     args = sys.argv
-    if(len(args) == 1):
+    if (len(args) == 1):
         usage()
         exit()
-    elif(len(args) == 2):
+    elif (len(args) == 2):
         usage()
         exit()
-    elif(len(args) == 3):
+    elif (len(args) == 3):
         path = args[1]
         name = args[2]
         mds = search(path, name)
