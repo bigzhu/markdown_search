@@ -33,6 +33,9 @@ def search(path, name, not_in=[], sub_path=""):
             mds.update(sub_mds)
             continue
 
+        # 只取后缀 md 的
+        if (md.endswith(".md") == False):
+            continue
         if (fnmatch.fnmatchcase(md.upper(), ('*%s*' % name).upper())):
             # 取文件修改时间
             modify_time = time.localtime(os.path.getmtime(file_path + md))
@@ -53,7 +56,6 @@ def write(path, name, mds):
         # print >>f, '%s' % md[0]
         # f.writelines(md[0] + '\n')
         f.writelines("[%s](%s.md)\n" % (md[0], md[0]))
-    # f.writelines("tips/" + name + '\n')
     f.writelines("[%s](%s.md)\n" % (name, name))
 
 # [独立开发者案例和故事收集](独立开发者案例和故事收集)
